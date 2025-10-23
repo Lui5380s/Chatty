@@ -1,0 +1,30 @@
+[project]
+name = "chatbot"
+version = "0.2.0"
+description = "Nova ChatBot with database and AI integration"
+authors = ["Luis <you@example.com>"]
+requires-python = ">=3.9"
+
+dependencies = [
+    "flask",
+    "requests",
+    "fuzzywuzzy",
+    "python-dotenv",
+    "pytest",
+    "deep-translator",
+    "openai",
+    "rich",
+    "sqlite-utils"
+]
+
+[tool.pixi.dependencies]
+dev = [
+    "black",
+    "ruff",
+    "pytest"
+]
+
+[tasks]
+# Standardbefehl für Tests
+test = "pytest -v"
+run = "python -m chatbot.backup"
