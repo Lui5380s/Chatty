@@ -1,21 +1,24 @@
-[project]
+[workspace]
 name = "chatbot"
 version = "0.2.0"
 description = "Nova ChatBot with database and AI integration"
-authors = ["Luis <you@example.com>"]
-requires-python = ">=3.9"
-
-dependencies = [
-    "flask",
-    "requests",
-    "fuzzywuzzy",
-    "python-dotenv",
-    "pytest",
-    "deep-translator",
-    "openai",
-    "rich",
-    "sqlite-utils"
+authors = ["Luis"]
+channels = [
+    "conda-forge"
 ]
+platforms = ["osx-arm64", "linux-64", "win-64"]
+requires-pixi = "0.58.0.*" 
+
+[dependencies]
+flask = "*"
+requests = "*"
+fuzzywuzzy = "*"
+python-dotenv = "*"
+pytest = "*"
+llama-cpp-python = "*"
+openai = "*"
+rich = "*"
+sqlite-utils = "*"
 
 [tool.pixi.dependencies]
 dev = [
@@ -25,6 +28,7 @@ dev = [
 ]
 
 [tasks]
-# Standardbefehl für Tests
 test = "pytest -v"
-run = "python -m chatbot.backup"
+run = "python -m chatbot.main"
+format = "black chatbot tests"
+lint = "ruff check chatbot"
