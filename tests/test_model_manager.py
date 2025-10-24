@@ -1,4 +1,4 @@
-from chatbot.model_manager import LocalLLM
+from chatbot.core.model_manager import LocalLLM
 
 def test_llm_initialization():
     llm = LocalLLM()

@@ -1,34 +1,31 @@
-[workspace]
-name = "chatbot"
-version = "0.2.0"
-description = "Nova ChatBot with database and AI integration"
-authors = ["Luis"]
-channels = [
-    "conda-forge"
-]
+[tool.pixi.workspace]
 platforms = ["osx-arm64", "linux-64", "win-64"]
-requires-pixi = "0.58.0.*" 
+
+[workspace]
+name = "chatty"
+version = "0.1.0"
+description = "Asynchronous modular ChatBot with FastAPI, LLM and Pixi."
+authors = ["Luis"]
+channels = ["conda-forge"]
+platforms = ["osx-arm64", "linux-64", "win-64"]
 
 [dependencies]
-flask = "*"
+python = ">=3.10"
+fastapi = "*"
+uvicorn = "*"
+pytest = "*"
 requests = "*"
 fuzzywuzzy = "*"
 python-dotenv = "*"
-pytest = "*"
 llama-cpp-python = "*"
-openai = "*"
-rich = "*"
 sqlite-utils = "*"
+rich = "*"
+pydantic = "*"
 
 [tool.pixi.dependencies]
-dev = [
-    "black",
-    "ruff",
-    "pytest"
-]
+dev = ["black", "ruff", "pytest", "httpx"]
 
 [tasks]
+run = "uvicorn chatbot.main:app --reload"
 test = "pytest -v"
-run = "python -m chatbot.main"
-format = "black chatbot tests"
-lint = "ruff check chatbot"
+lint = "ruff check ."
