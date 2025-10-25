@@ -19,4 +19,4 @@ def test_chat_valid_message():
 def test_chat_empty_message():
     payload = {"message": ""}
     resp = client.post("/api/chat", json=payload)
-    assert resp.status_code == 400
+    assert resp.status_code == 422

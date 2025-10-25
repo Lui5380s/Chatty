@@ -2,6 +2,24 @@
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+[project]
+name = "chatty"
+version = "0.2.0"
+description = "Modularer KI-Chatbot mit FastAPI, Pixi und optionalen LLMs"
+authors = [{ name = "Luis" }]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "pytest",
+    "requests",
+    "fuzzywuzzy",
+    "python-dotenv",
+    "rich",
+    "sqlite-utils"
+]
+
 [tool.black]
 line-length = 88
 target-version = ["py310"]
@@ -9,3 +27,6 @@ target-version = ["py310"]
 [tool.ruff]
 select = ["E", "F"]
 ignore = ["E501"]
+
+[tool.pixi.pypi-dependencies]
+chatty = { path = ".", editable = true }

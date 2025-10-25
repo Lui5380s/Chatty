@@ -21,6 +21,8 @@ llama-cpp-python = "*"
 sqlite-utils = "*"
 rich = "*"
 pydantic = "*"
+sqlmodel = "*"
+pydantic-settings = "*"
 
 [tool.pixi.dependencies]
 dev = ["black", "ruff", "pytest", "httpx"]

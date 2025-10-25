@@ -1,10 +1,17 @@
+# chatbot/main.py
 from fastapi import FastAPI
-from chatbot.api.routes import router as chat_router
+from chatbot.api.routes import router as api_router
+from chatbot.core.database import init_db
+from chatbot.config import settings
 
-app = FastAPI(title="Chatty Modular AI", version="0.2.0")
+app = FastAPI(title=settings.project_name)
 
-app.include_router(chat_router, prefix="/api")
+@app.on_event("startup")
+def on_startup():
+    init_db()
+
+app.include_router(api_router, prefix="/api")
 
 @app.get("/")
-async def root():
-    return {"message": "🚀 Chatty API läuft!"}
+def root():
+    return {"message": f"Welcome to {settings.project_name}!"}
