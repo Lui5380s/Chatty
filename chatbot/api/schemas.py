@@ -1,5 +1,6 @@
 from pydantic import BaseModel, Field
 from typing import Optional
+from datetime import datetime
 
 class ChatRequest(BaseModel):
     project: Optional[str] = Field(
@@ -17,3 +18,21 @@ class ChatResponse(BaseModel):
     chatty_response: str = Field(..., description="Die vom Chatbot erzeugte Antwort")
     project: Optional[str] = Field(None, description="Das verwendete Projekt (falls angegeben)")
     source: Optional[str] = Field(None, description="Optional: Quelle / Hinweis wie die Antwort gefunden wurde")
+
+class ProjectBase(BaseModel):
+    name: str
+    description: Optional[str] = None
+
+
+class ProjectCreate(ProjectBase):
+    """Wird für POST /api/projects benutzt."""
+    pass
+
+
+class ProjectRead(ProjectBase):
+    """Wird für GET /api/projects oder GET /api/projects/{id} benutzt."""
+    id: int
+    created_at: datetime
+
+    class Config:
+        from_attributes = True  # erlaubt ORM -> Schema Konvertierung

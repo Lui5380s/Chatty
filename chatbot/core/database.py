@@ -1,13 +1,28 @@
-# chatbot/core/db.py
-from sqlmodel import SQLModel, create_engine, Session
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, declarative_base
 from chatbot.config import settings
+import os
 
-engine = create_engine(settings.database_url, echo=settings.debug)
+# SQLite Pfad
+DB_URL = f"sqlite:///{os.path.join(os.getcwd(), 'chatty.db')}"
+
+# Engine & Session
+engine = create_engine(DB_URL, connect_args={"check_same_thread": False})
+SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
+
+# Base-Klasse für alle Models
+Base = declarative_base()
+
 
 def init_db():
-    """Initialisiert alle Tabellen (wird später von main.py aufgerufen)."""
-    SQLModel.metadata.create_all(engine)
+    """Erstellt alle Tabellen, falls sie noch nicht existieren."""
+    from chatbot.core import models  # wichtig, damit SQLAlchemy die Klassen kennt
+    Base.metadata.create_all(bind=engine)
 
-def get_session():
-    with Session(engine) as session:
-        yield session
+def get_db():
+    """Dependency, um eine DB-Session bereitzustellen (für FastAPI Depends)."""
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
