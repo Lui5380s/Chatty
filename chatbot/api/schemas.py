@@ -34,5 +34,20 @@ class ProjectRead(ProjectBase):
     id: int
     created_at: datetime
 
-    class Config:
+    class ConfigDict:
         from_attributes = True  # erlaubt ORM -> Schema Konvertierung
+
+class UserBase(BaseModel):
+    username: str
+    email: str
+    is_active: bool = True
+    is_superuser: bool = False
+
+class UserCreate(UserBase):
+    password: str
+
+class UserRead(UserBase):
+    id: int
+
+    class Config:
+        from_attributes = True

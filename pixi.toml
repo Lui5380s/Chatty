@@ -23,6 +23,8 @@ rich = "*"
 pydantic = "*"
 sqlmodel = "*"
 pydantic-settings = "*"
+passlib = "*"
+python-jose = ">=3.5.0,<4"
 
 [tool.pixi.dependencies]
 dev = ["black", "ruff", "pytest", "httpx"]
